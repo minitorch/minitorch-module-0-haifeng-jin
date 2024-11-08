@@ -136,15 +136,36 @@ def test_distribute(a: float, b: float, c: float) -> None:
     r"""Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    assert_close(mul(a, add(b, c)), add(mul(a, b), mul(a, c)))
 
 
 @pytest.mark.task0_2
-def test_other() -> None:
-    """Write a test that ensures some other property holds for your functions."""
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+@given(small_floats, small_floats)
+def test_swap_add(a: float, b: float) -> None:
+    """Write a test that ensures swap holds for your add."""
+    assert add(a, b) == add(b, a)
+
+
+@pytest.mark.task0_2
+@given(small_floats, small_floats)
+def test_swap_mul(a: float, b: float) -> None:
+    """Write a test that ensures swap holds for your mul."""
+    assert mul(a, b) == mul(b, a)
+
+
+@pytest.mark.task0_2
+@given(small_floats, small_floats)
+def test_add_neg(a: float, b: float) -> None:
+    """Write a test that ensures sub is add neg."""
+    assert a - b == add(a, neg(b))
+
+
+@pytest.mark.task0_2
+@given(small_floats, small_floats)
+def test_mul_inv(a: float, b: float) -> None:
+    """Write a test that ensures div is mul inv."""
+    if b >= 1e-3:
+        assert_close(a / b, mul(a, inv(b)))
 
 
 # ## Task 0.3  - Higher-order functions
