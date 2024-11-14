@@ -65,6 +65,8 @@ def is_close(x: float, y: float) -> bool:
 
 
 def sigmoid(x: float) -> float:
+    if x > 100.0:
+        return 1.0
     return 1.0 - 1.0 / (1.0 + math.exp(x))
 
 
@@ -111,5 +113,27 @@ def relu_back(x: float, y: float) -> float:
 # - sum: sum lists
 # - prod: take the product of lists
 
+def map(fn, values):
+    return [fn(value) for value in values]
 
-# TODO: Implement for Task 0.3.
+def zipWith(fn, a, b):
+    return [fn(a[i], b[i]) for i in range(min(len(a), len(b)))]
+
+def reduce(fn, values, init_value):
+    result = init_value
+    for value in values:
+        result = fn(result, value)
+    return result
+
+def addLists(a, b):
+    return zipWith(add, a, b)
+
+def negList(values):
+    return map(neg, values)
+
+def prod(values):
+    return reduce(mul, values, 1)
+
+def sum(values):
+    return reduce(add, values, 0)
+
