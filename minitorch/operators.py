@@ -118,7 +118,7 @@ def map(fn: Callable[[float], float], values: Iterable[float]) -> Iterable:
 
 
 def zipWith(fn: Callable[[float, float], float], a: Iterable[float], b: Iterable[float]) -> Iterable:
-    return [fn(a[i], b[i]) for i in range(min(len(a), len(b)))]
+    return [fn(x, y) for x, y in zip(a, b)]
 
 
 def reduce(fn: Callable[[float, float], float], values: Iterable[float], init_value: float) -> float:
