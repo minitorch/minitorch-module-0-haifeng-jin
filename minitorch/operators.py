@@ -113,27 +113,32 @@ def relu_back(x: float, y: float) -> float:
 # - sum: sum lists
 # - prod: take the product of lists
 
-def map(fn, values):
+def map(fn: Callable[[float], float], values: Iterable[float]) -> Iterable:
     return [fn(value) for value in values]
 
-def zipWith(fn, a, b):
-    return [fn(a[i], b[i]) for i in range(min(len(a), len(b)))]
 
-def reduce(fn, values, init_value):
+def zipWith(fn: Callable[[float, float], float], a: Iterable[float], b: Iterable[float]) -> Iterable:
+    return [fn(x, y) for x, y in zip(a, b)]
+
+
+def reduce(fn: Callable[[float, float], float], values: Iterable[float], init_value: float) -> float:
     result = init_value
     for value in values:
         result = fn(result, value)
     return result
 
-def addLists(a, b):
+
+def addLists(a: Iterable[float], b: Iterable[float]) -> Iterable:
     return zipWith(add, a, b)
 
-def negList(values):
+
+def negList(values: Iterable[float]) -> Iterable:
     return map(neg, values)
 
-def prod(values):
+
+def prod(values: Iterable[float]) -> float:
     return reduce(mul, values, 1)
 
-def sum(values):
-    return reduce(add, values, 0)
 
+def sum(values: Iterable[float]) -> float:
+    return reduce(add, values, 0)
